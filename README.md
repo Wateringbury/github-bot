@@ -1,6 +1,6 @@
-# Discord Bot template
+# GitHub Discord Bot
 
-The basic scaffolding for a Discord bot built using the [Sapphire](https://www.sapphirejs.dev/) Discordjs framework.
+A Discord bot for interacting with the GitHub API, built using the [Sapphire](https://www.sapphirejs.dev/) Discordjs framework.
 
 ## Features:
 
