@@ -1,9 +1,22 @@
 import { Command, CommandStore } from "@sapphire/framework";
 import { Server } from "../models/Server";
 import { EmbedBuilder, InteractionReplyOptions } from "discord.js";
+import { Octokit } from "octokit";
 
 export class GithubController {
   private servers: Map<string, Server> = new Map<string, Server>();
+  private octokit: Octokit;
+
+  /**
+   * Initialise a new controller instance with a new octokit
+   * object.
+   * @param gitHubToken GitHub API token
+   */
+  public constructor(gitHubToken: string) {
+    this.octokit = new Octokit({
+      auth: gitHubToken,
+    });
+  }
 
   /**
    * Create a new server mapping.

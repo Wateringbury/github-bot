@@ -4,7 +4,7 @@ import config from "./config.json";
 import { GithubController } from "./controllers/GithubController";
 
 // Create the controller object
-container.controller = new GithubController();
+container.controller = new GithubController(config.gitHubToken);
 
 // Initiate the Sapphire client
 const client = new SapphireClient({
