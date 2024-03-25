@@ -40,7 +40,7 @@ export class SetRepoCommand extends Command {
     // @ts-ignore: repo input is a required field
     const repo: string = interaction.options.getString("repo").trim();
     // Set the server repository
-    const message = await container.controller.setRepository(serverId, owner, repo);
+    const message: string = await container.controller.setRepository(serverId, owner, repo);
     return interaction.editReply(message);
   }
 }

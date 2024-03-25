@@ -55,7 +55,7 @@ export class GithubController {
     // @ts-ignore: HasServer precondition confirms server exists
     const server: Server = this.servers.get(serverId);
     // Set repository
-    const message = await server.setRepository(owner, repo);
+    const message: string = await server.setRepository(owner, repo);
     return message;
   }
 }
