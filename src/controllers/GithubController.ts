@@ -10,14 +10,15 @@ export class GithubController {
   private storage: Keyv;
 
   /**
-   * Initialise a new controller instance with a new octokit
-   * object.
+   * Initialise a new controller instance.
    * @param gitHubToken GitHub API token
    */
   public constructor(gitHubToken: string) {
+    // Initialise octokit object
     this.octokit = new Octokit({
       auth: gitHubToken,
     });
+    // Initialise storage object
     this.storage = new Keyv("sqlite://database/storage.sqlite");
   }
 
