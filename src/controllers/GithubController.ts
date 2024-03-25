@@ -2,10 +2,12 @@ import { Command, CommandStore } from "@sapphire/framework";
 import { Server } from "../models/Server";
 import { EmbedBuilder, InteractionReplyOptions } from "discord.js";
 import { Octokit } from "octokit";
+import Keyv from "keyv";
 
 export class GithubController {
   private servers: Map<string, Server> = new Map<string, Server>();
   private octokit: Octokit;
+  private storage: Keyv;
 
   /**
    * Initialise a new controller instance with a new octokit
@@ -16,14 +18,18 @@ export class GithubController {
     this.octokit = new Octokit({
       auth: gitHubToken,
     });
+    this.storage = new Keyv("sqlite://database/storage.sqlite");
   }
 
   /**
    * Create a new server mapping.
    * @param serverId The guild id
    */
-  public addServer(serverId: string): void {
-    this.servers.set(serverId, new Server());
+  public async addServer(serverId: string): Promise<void> {
+    // Retrieve previously stored server data
+    const storedServer: any = await this.storage.get(serverId);
+    // Initialise new server
+    this.servers.set(serverId, new Server(serverId, storedServer?.owner, storedServer?.repo));
   }
 
   /**

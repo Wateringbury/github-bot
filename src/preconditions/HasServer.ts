@@ -18,7 +18,7 @@ export class HasServerPrecondition extends Precondition {
     // Create an entry for the server if one doesn't already exist
     const serverId = interaction.guild.id;
     if (!container.controller.servers.get(serverId)) {
-      container.controller.addServer(serverId);
+      await container.controller.addServer(serverId);
     }
     return this.ok();
   }
