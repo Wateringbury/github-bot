@@ -5,6 +5,7 @@ A Discord bot for interacting with the GitHub API, built using the [Sapphire](ht
 ## Features:
 
 - /help = List all available commands
+- /setrepo - Set the repository for the current server
 
 ## Run
 
