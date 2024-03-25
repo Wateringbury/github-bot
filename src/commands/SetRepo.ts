@@ -1,5 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command, container } from "@sapphire/framework";
+import { Message } from "discord.js";
 
 @ApplyOptions<Command.Options>({
   description: "Set the repository for this server.",
@@ -30,7 +31,7 @@ export class SetRepoCommand extends Command {
    * Get the repository and set it as this server's repository.
    * @param interaction The slash command interaction
    */
-  public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<void> {
+  public async chatInputRun(interaction: Command.ChatInputCommandInteraction): Promise<Message<boolean>> {
     await interaction.deferReply();
     // @ts-ignore: HasServer precondition checks if guild is null
     const serverId: string = interaction.guild.id;
@@ -39,6 +40,7 @@ export class SetRepoCommand extends Command {
     // @ts-ignore: repo input is a required field
     const repo: string = interaction.options.getString("repo").trim();
     // Set the server repository
-    await container.controller.setRepository(serverId, owner, repo);
+    const message = await container.controller.setRepository(serverId, owner, repo);
+    return interaction.editReply(message);
   }
 }
