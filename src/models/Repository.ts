@@ -13,7 +13,7 @@ export class Repository {
   public static async find(owner: string, repo: string): Promise<Repository | undefined> {
     try {
       // Get the repository
-      const response = await container.controller.octokit.rest.repos.get({
+      const response: any = await container.controller.octokit.rest.repos.get({
         owner,
         repo,
       });

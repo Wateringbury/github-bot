@@ -43,4 +43,18 @@ export class GithubController {
     embed.setDescription(commandsString);
     return { embeds: [embed] };
   }
+
+  /**
+   * Set the server repository.
+   * @param serverId Id for the server the command was used in
+   * @param owner The Github user/organisation that owns the repository
+   * @param repo The name of the repository
+   */
+  public async setRepository(serverId: string, owner: string, repo: string): Promise<void> {
+    // Get available workspaces
+    // @ts-ignore: HasServer precondition confirms server exists
+    const server: Server = this.servers.get(serverId);
+    // Set repository
+    await server.setRepository(owner, repo);
+  }
 }
