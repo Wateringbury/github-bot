@@ -2,10 +2,12 @@ import { Command, CommandStore } from "@sapphire/framework";
 import { Server } from "../models/Server";
 import { EmbedBuilder, InteractionReplyOptions } from "discord.js";
 import { Octokit } from "octokit";
+import Keyv from "keyv";
 
 export class GithubController {
   private servers: Map<string, Server> = new Map<string, Server>();
   private octokit: Octokit;
+  private storage: Keyv;
 
   /**
    * Initialise a new controller instance with a new octokit
@@ -16,6 +18,7 @@ export class GithubController {
     this.octokit = new Octokit({
       auth: gitHubToken,
     });
+    this.storage = new Keyv("sqlite://database/storage.sqlite");
   }
 
   /**

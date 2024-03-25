@@ -5,8 +5,12 @@ import { Repository } from "./Repository";
  * Class to handle all interactions on each server.
  */
 export class Server {
-  private owner?: string = undefined;
-  private repo?: string = undefined;
+  constructor(
+    //
+    private id: string,
+    private owner?: string,
+    private repo?: string
+  ) {}
 
   /**
    * Set the repository for this server to interact with.
