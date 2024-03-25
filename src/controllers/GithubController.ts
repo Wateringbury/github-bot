@@ -79,4 +79,25 @@ export class GithubController {
     }
     return message;
   }
+
+  /**
+   * Create a new issue on the server's repository with the label 'enhancement'.
+   * @param serverId Id for the server the command was used in
+   * @param title The Github user/organisation that owns the repository
+   * @param description The full issue description
+   */
+  public async createFeature(serverId: string, title: string, description?: string): Promise<string> {
+    // Get available workspaces
+    // @ts-ignore: HasServer precondition confirms server exists
+    const server: Server = this.servers.get(serverId);
+    let message: string;
+    try {
+      // Create the issue
+      message = await server.createIssue(title, description, "enhancement");
+    } catch (error: any) {
+      // Return error details
+      message = error.message;
+    }
+    return message;
+  }
 }
