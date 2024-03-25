@@ -4,6 +4,27 @@ import { container } from "@sapphire/framework";
  * Class to handle all interactions on each server.
  */
 export class Repository {
+  private id: number = 0;
+  private name: string = "";
+  private full_name: string = "";
+  private description: string = "";
+
+  /**
+   * Get the name of this repository.
+   * @returns The repository name
+   */
+  public getName(): string {
+    return this.name;
+  }
+
+  /**
+   * Get the owner and name of this repository.
+   * @returns The full repository name
+   */
+  public getFullName(): string {
+    return this.full_name;
+  }
+
   /**
    * Find the provided repository.
    * @param owner The Github user/organisation that owns the repository
