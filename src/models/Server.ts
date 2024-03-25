@@ -1,3 +1,4 @@
+import { container } from "@sapphire/framework";
 import { Issue } from "./Issue";
 import { Repository } from "./Repository";
 
@@ -25,8 +26,10 @@ export class Server {
       return "Repository not found";
     }
     // Save the repo details on this server
-    this.owner = owner;
-    this.repo = repo;
+    await container.controller.storage.set(this.id, {
+      owner: (this.owner = owner),
+      repo: (this.repo = repo),
+    });
     return `Repository set to ${repository.getFullName()}`;
   }
 
