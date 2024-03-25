@@ -1,3 +1,4 @@
+import { Issue } from "./Issue";
 import { Repository } from "./Repository";
 
 /**
@@ -23,5 +24,23 @@ export class Server {
     this.owner = owner;
     this.repo = repo;
     return `Repository set to ${repository.getFullName()}`;
+  }
+
+  /**
+   * Create a new issue on this server's repository.
+   * @param title Summary of the issue
+   * @param description Full description of the issue
+   * @param tag Issue label to add
+   * @returns Message with outcome
+   */
+  public async createIssue(title: string, description?: string, tag?: string): Promise<string> {
+    if (!this.owner || !this.repo) throw new Error("Server repository must be defined");
+    // Create the new issue
+    const issue: Issue | undefined = await Issue.create(this.owner, this.repo, title, description, tag);
+    if (!issue) {
+      // If issue creation fails
+      return "Issue not created";
+    }
+    return `New ${tag ?? "issue"} raised: ${issue.getTitle()}`;
   }
 }
